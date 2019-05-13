@@ -69,7 +69,5 @@ class SimilarImagesSearcher:
             )
 
 
-searcher = SimilarImagesSearcher()
-searcher.search_similar_images_in_folder("./dev_dataset")
-searcher.print_results()
+
 
