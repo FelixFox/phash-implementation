@@ -6,8 +6,8 @@ E-mail: staceyhooks0@gmail.com
 
 from PIL import Image
 import numpy as np
-from phash import PHash
-from utils import get_paths_list_from_folder
+from .phash import PHash
+from utils.fs import get_paths_list_from_folder
 import os
 
 

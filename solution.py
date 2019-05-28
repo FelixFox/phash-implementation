@@ -1,4 +1,4 @@
-from similar_image_searcher import SimilarImagesSearcher
+from search_core.similar_image_searcher import SimilarImagesSearcher
 from argparse import ArgumentParser
 
 
