@@ -60,8 +60,7 @@ class SimilarImagesSearcher:
                     )
             comparison_results[image_path] = compare_result
 
-        self.sorted_hash_results = self.__sort_comparison_results(
-            comparison_results)
+        self.sorted_hash_results = comparison_results
         self.apply_threshold_to_result(threshold=threshold)
 
     def __get_images_hashes(self, image_paths):
@@ -101,30 +100,8 @@ class SimilarImagesSearcher:
         hash = self.hasher.get_hash(image)
         return hash
 
-    def __sort_comparison_results(self, comparison_results):
-        """Sorts list of images due to their distances. For each image in comparison results
-            there will be sorted images due to their distances for the given one: from smaller distance to 
-            bigger
-        
-        Parameters
-        ----------
-        comparison_results : dict
-            dict with pairs image_path_1:list of tuples. Each tuple is (image_path_x, distance to image_path_1)
-        
-        Returns
-        -------
-        sorted_hashes: dict
-            Sorted lists of tuples for each image
-        """
-        sorted_hashes = {}
-        for image_path, results in comparison_results.items():
-            sorted_results = [(k, results[k])
-                              for k in sorted(results, key=results.get)]
-            sorted_hashes[image_path] = sorted_results
-        return sorted_hashes
-
     def print_results(self):
-        """Prints results from `self.sorted_hash_results` in the form of pair: image   similar_image
+        """Prints results from `self.sorted_hash_results` in the form of pair: image similar_image
         """
         pairs = []
         for image_path, res in self.sorted_hash_results.items():
@@ -146,7 +123,7 @@ class SimilarImagesSearcher:
         """
         for image_path, res in self.sorted_hash_results.items():
             most_similar = []
-            for item in res:
-                if item[1] < threshold:
-                    most_similar.append(item)
+            for path, dintance in res.items():
+                if dintance < threshold:
+                    most_similar.append((path, dintance))
             self.sorted_hash_results[image_path] = most_similar
